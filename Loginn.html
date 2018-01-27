@@ -13,6 +13,7 @@
             width: 700px;
             height: auto;
             margin: auto;
+           
         }
 
         #kullaniciAdi, #sifre {
@@ -43,7 +44,46 @@
             background-color: #0033cc;
             
         }
-     
+        .ust-bilgi {
+            display:block;
+            -webkit-box-orient: horizontal;
+            margin-top: 200px;
+             -ms-flex-direction: row;
+            flex-direction: row;
+            margin: 10px 40px 18px;
+            box-shadow: 0 0 black;
+        }
+        .sol-cizgi {
+            -webkit-box-flex: 1;
+            flex-grow: 1;
+            flex-shrink: 1;
+            background-color: #c7c7c7;
+            height: 1px;
+            position: relative;
+            
+            top: .35em;
+        }
+        .ust-yazi {
+            color: #999;
+            -webkit-box-flex: 0;
+           flex-grow: 0;
+            flex-shrink: 0;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 15px;
+            margin: 0 18px;
+            text-transform: uppercase;
+        }
+        .sag-cizgi {
+            -webkit-box-flex: 1;
+             flex-grow: 1;
+             flex-shrink: 1;
+            background-color: #c7c7c7;
+            height: 1px;
+            position: relative;
+            top: .45em;
+        }
+      
         #denemeSayaci {
             display: inline-block;
             width: 675px;
@@ -58,39 +98,20 @@
 </head>
 <body>
     <div id="login-sayfasi">
-           <input id="kullaniciAdi" type="text" value="" placeholder="Username"onkeypress="return event.charCode >=48 && event.charCode <=57"maxlength="20" />             
+        <div class="ust-bilgi">
+          <div class="sol-cizgi"></div> 
+          <div class="ust-yazi">PLEASE LOG IN </div>
+          <div class="sag-cizgi"></div>
+
+        </div>
+           <input id="kullaniciAdi" type="text" value="" placeholder="Username" />             
             <input id="sifre" type="password" value="" placeholder="Password" />
             <button id="giris">Log In</button>
             <a id="denemeSayaci"></a>
     </div>
 
     <script>
-       /* function isValid(frm) {
-            var kullaniciAdi = document.getElementById('kullaniciAdi').value;
-            var sifre = document.getElementById('sifre').value1;
-           
-
-            if (kullaniciAdi == null || kullaniciAdi == "" || sifre == null || sifre == "") {
-                alert("Username bilgisini giriniz veya Password bilgisini giriniz");
-                return false;
-            }
-            function uzunlukkontrol(kullaniciAdi, min, max) {
-                min = min || 2;
-                max = max || 5;
-                if (kullaniciAdi.length < min || kullaniciAdi.length > max) {
-                    alert("fazla girme");
-                    return false;
-                }
-            for (var i = 0; i < kullaniciAdi.length; i++) {
-
-                if (kullaniciAdi == null || kullaniciAdi == "" || kullaniciAdi.length < 2) {
-                    alert("Kullanıcı adı 4 karakterden az olamaz");
-                    return false;
-                }
-            }
-            return true;
-        }
-    */
+      
         $.cookie('girisSayaci', '0')
 
         $('#giris').bind('click', function () {
@@ -119,17 +140,30 @@
                                 $.cookie('login', kullaniciAdi, { expires: 1 })
                                 break;
                             }
-                            else {
+                            else if (kullaniciAdi == kullanicilar[i].kullanici_adi & sifre != kullanicilar[i].sifre) {
                                 if (girisSayaci != 3 & !$.cookie('loginBlocker')) {
                                     $.cookie('girisSayaci', (girisSayaci++))
                                     document.getElementById('denemeSayaci').innerHTML = 3-$.cookie('girisSayaci') + ' ' + 'Deneme Hakkınız Kaldı'
                                 }
                                 else if (girisSayaci == 3 & !$.cookie('loginBlocker')) {
                                     document.getElementById('denemeSayaci').innerHTML = 'HESABINIZ BLOKE EDİLMİŞTİR!'
+                                    break;
+                                } 
+                            }
+                            else if (kullaniciAdi != kullanicilar[i].kullanici_adi & sifre != kullanicilar[i].sifre) {
 
-                                    
+                                alert("Login Hatalı!");
+
+                                if (kullaniciAdi !== kullanicilar[i].kullanici_adi) {
+
+                                    alert("UserName Sistemde Bulunmadı!");
+                                    document.getElementById("giris").disabled = true;
+
+                                    return;
                                 }
                             }
+
+                            
 
                         }
                     }
@@ -144,6 +178,7 @@
 
         if ($.cookie('login')) {
             document.getElementById('denemeSayaci').innerHTML = 'GİRİŞ BAŞARILI!'
+
         }
 
 
