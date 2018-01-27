@@ -10,179 +10,229 @@
     <script src="Content/kullanicilar.js"></script>
     <style>
         #login-sayfasi {
-            width: 700px;
-            height: auto;
-            margin: auto;
            
+            border: 3px solid #f1f1f1;
+            width: 500px;
+            margin:  auto;
+            padding: 20px;
+            background: rgba(255,255,255, 0.2);
+            box-shadow: 0px 0px 23px 6px grey;
         }
 
         #kullaniciAdi, #sifre {
-            display: block;
+            display:inline-block ;
             text-align: left;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             font-size: x-large;
-            width: 600px;
-            height: 70px;
-            margin-top: 200px;
-            margin-bottom: 50px;
+            width:100%;
+            height: 50px;
+            margin-top: 80px;
+            margin-bottom: 10px;
             border-radius: 10px;
         }
 
         #sifre {
-            margin-top: 100px;
+            margin-top: 50px;
         }
 
-        #giris {
-            display: block;
-            width: 170px;
-            height: 80px;
-            color:aliceblue;
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            font-size: 25px;
-            border-radius: 10px;
-            margin-left: 200px;
-            background-color: #0033cc;
-            
-        }
+      
         .ust-bilgi {
-            display:block;
-            -webkit-box-orient: horizontal;
-            margin-top: 200px;
-             -ms-flex-direction: row;
+            display: flex;
+            -ms-flex-direction: row;
             flex-direction: row;
-            margin: 10px 40px 18px;
+            width: 100%;
+            margin: 10px 10px 0px;
             box-shadow: 0 0 black;
         }
-        .sol-cizgi {
+
+        .sol-ust-cizgi {
+            display: inline;
             -webkit-box-flex: 1;
             flex-grow: 1;
             flex-shrink: 1;
             background-color: #c7c7c7;
             height: 1px;
             position: relative;
-            
-            top: .35em;
+            top: .45em;
         }
+
         .ust-yazi {
+            display: inline;
             color: #999;
             -webkit-box-flex: 0;
-           flex-grow: 0;
+            flex-grow: 0;
             flex-shrink: 0;
-            font-size: 13px;
+            font-size: 20px;
             font-weight: 600;
             line-height: 15px;
             margin: 0 18px;
             text-transform: uppercase;
         }
-        .sag-cizgi {
+
+        .sag-ust-cizgi {
+            display: inline;
             -webkit-box-flex: 1;
-             flex-grow: 1;
-             flex-shrink: 1;
+            flex-grow: 1;
+            flex-shrink: 1;
+            background-color: #c7c7c7;
+            height: 1px;
+            position: relative;
+             top: .45em;
+        }
+        .alt-bilgi {
+            display: flex;
+            -ms-flex-direction: row;
+            flex-direction: row;
+            width: 100%;
+            margin: 40px 10px 10px;
+            box-shadow: 0 0 black;
+        }
+
+        .sol-alt-cizgi {
+            display: inline;
+            -webkit-box-flex: 1;
+            flex-grow: 1;
+            flex-shrink: 1;
+            background-color: #c7c7c7;
+            height: 1px;
+            margin-top: 15px;
+            position: relative;
+            top: .45em;
+        }
+        .sag-alt-cizgi {
+            display: inline;
+            -webkit-box-flex: 1;
+            flex-grow: 1;
+            flex-shrink: 1;
+            margin-top:15px;
             background-color: #c7c7c7;
             height: 1px;
             position: relative;
             top: .45em;
         }
-      
-        #denemeSayaci {
+        #giris {
             display: inline-block;
-            width: 675px;
-            margin-top: 50px;
-            margin-left: 200px;
-           
+            width: 170px;
+            height: 60px;
+            color: aliceblue;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            font-size: 20px;
-            color: red;
+            font-size: 25px;
+            border-radius: 10px;
+            margin-left: 180px;
+            background-color: #0066ff;
+            flex-grow: 0;
+            font-weight: 600;
+            margin: 0 18px;
+            -moz-box-shadow: 0 0 65px rgba(0,0,0,0.2);
+        }
+
+        .uyari {
+           display:inline-block;
+           width: auto;
+           font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+           font-size: 20px;
+           color: red;
         }
     </style>
 </head>
 <body>
     <div id="login-sayfasi">
         <div class="ust-bilgi">
-          <div class="sol-cizgi"></div> 
+          <div class="sol-ust-cizgi"></div> 
           <div class="ust-yazi">PLEASE LOG IN </div>
-          <div class="sag-cizgi"></div>
+          <div class="sag-ust-cizgi"></div>
 
         </div>
-           <input id="kullaniciAdi" type="text" value="" placeholder="Username" />             
-            <input id="sifre" type="password" value="" placeholder="Password" />
+          <input id="kullaniciAdi" type="text" value="" placeholder="Username"  onkeypress="return event.charCode >= 48 && event.charCode <= 57 & event.charCode >= 65 && event.charCode <= 90" maxlength="20" />            
+            <input id="sifre" type="password" value="" placeholder="Password"maxlength="8" />
+        <div class="alt-bilgi">
+            <div class="sol-alt-cizgi"></div>
             <button id="giris">Log In</button>
-            <a id="denemeSayaci"></a>
+            <div class="sag-alt-cizgi"></div>
+          </div>
+           <span class="uyari"></span>
     </div>
 
     <script>
-      
-        $.cookie('girisSayaci', '0')
+       /* var input = document.getElementById('kullaniciAdi');
 
-        $('#giris').bind('click', function () {
-            if (!$.cookie("login") & !$.cookie('loginBlocker')) {
-                $.ajax({
-                    url: 'Content/kullanicilar.js',
-                    method: 'get',
-                    success: function (data) {
-                        var kullanicilar = JSON.parse(data);
-                        var girisSayaci = parseInt($.cookie('girisSayaci'))
-                        var kullaniciAdi = document.getElementById('kullaniciAdi').value
-                        var sifre = document.getElementById('sifre').value
+        input.addEventListener('keypress', function (event) {
+            if (event.charCode >= 48 && event.charCode <= 57) {
+                checkID(input.value);
+                return true;
+            } else {
+                return false;
+            };
+            input.addEventListener('keypress', handler2);
+    */
+        
 
-                       
-                        if (kullaniciAdi == null || kullaniciAdi == "" || sifre == null || sifre == "") {
-                            alert("Username bilgisini giriniz veya Password bilgisini giriniz");
-                            return false;
-                        }
-                     
-                        for (var i = 0; i < kullanicilar.length; i++) {
+        var sayac = 0;
+        $('#giris').on('click', function () {
+            var k_Adi = $('#kullaniciAdi').val();
+            var k_Sifre = $('#sifre').val();
+            if (k_Adi.trim() == "" || k_Sifre.trim() == "") {
+                $('.uyari').text('Username bilgisini giriniz veya Password bilgisini giriniz')
+                return;
+            }
+            if (k_Adi.length < 2 & k_Sifre.length < 5) {
+                $('.uyari').text('Login Hatalı');
+                $('#kullaniciAdi').text('');
+                $('#sifre').text('');
+                  
+                return  ;
+            }
 
-                            if (kullaniciAdi == kullanicilar[i].kullanici_adi & sifre == kullanicilar[i].sifre) {
-                                //document.getElementById('denemeSayaci').innerHTML = 'GİRİŞ BAŞARILI!'
-                                alert("GİRİŞ BAŞARILI!");
-                               
-                                $.cookie('login', kullaniciAdi, { expires: 1 })
-                                break;
-                            }
-                            else if (kullaniciAdi == kullanicilar[i].kullanici_adi & sifre != kullanicilar[i].sifre) {
-                                if (girisSayaci != 3 & !$.cookie('loginBlocker')) {
-                                    $.cookie('girisSayaci', (girisSayaci++))
-                                    document.getElementById('denemeSayaci').innerHTML = 3-$.cookie('girisSayaci') + ' ' + 'Deneme Hakkınız Kaldı'
-                                }
-                                else if (girisSayaci == 3 & !$.cookie('loginBlocker')) {
-                                    document.getElementById('denemeSayaci').innerHTML = 'HESABINIZ BLOKE EDİLMİŞTİR!'
-                                    break;
-                                } 
-                            }
-                            else if (kullaniciAdi != kullanicilar[i].kullanici_adi & sifre != kullanicilar[i].sifre) {
+            
+            else if (k_Adi.length <2 ) {
+                $('.uyari').text('Username bilgisini giriniz')
+                return;
+            }
+           else if (k_Sifre.length < 5) {
+                $('.uyari').text('Password bilgisini giriniz')
+                return;
+            }
+            
+            $.cookie("sayac", sayac, { expires: 100 });
+            $.ajax({
+                url: 'Content/kullanicilar.js',
+                method: 'get',
+                success: function (data) {
 
-                                alert("Login Hatalı!");
-
-                                if (kullaniciAdi !== kullanicilar[i].kullanici_adi) {
-
-                                    alert("UserName Sistemde Bulunmadı!");
-                                    document.getElementById("giris").disabled = true;
-
-                                    return;
-                                }
-                            }
-
-                            
-
+                    var kullanicilar = JSON.parse(data);
+                    for (var i = 0; i < kullanicilar.length; i++) {
+                        var kullanici = kullanicilar[i];
+                        if (k_Adi == kullanici.kullanici_adi) {
+                           
+                            break;
+                        } else { kullanici = ""; }
+                    }
+                    if (kullanici === "") {
+                        $("#kullaniciAdi").text("");
+                        $("#sifre").text("");
+                        $('.uyari').text('UserName Sistemde Bulunmadı');
+                        document.getElementById("giris").disabled = true;
+                        return;
+                    }
+                    if (kullanici.sifre === k_Sifre) {
+                        $.cookie("sayac") == 0;
+                        sayac = 0;
+                        $('.uyari').text('Giriş Başarılı');
+                        return;
+                    } else {
+                        if ($.cookie("sayac") == 3 || kullanici.hesapDurumu === 0) {
+                            kullanici.hesapDurumu = 0;
+                            $('.uyari').text('Hesap Bloke Edilmiştir !');
+                            return;
+                        } else {
+                            sayac++
+                            $('.uyari').text("");
                         }
                     }
-                })
-            }
+                }
+            })
+
         })
-        $('#giris').bind('click', function () {
-            if ($.cookie('loginBlocker')) {
-                document.getElementById('denemeSayaci').innerHTML = 'Hesabınız Bloke olmuştur .Lütfen Daha Sonra Tekrar Deneyin'
-            }
-        })
-
-        if ($.cookie('login')) {
-            document.getElementById('denemeSayaci').innerHTML = 'GİRİŞ BAŞARILI!'
-
-        }
-
-
-
 
     </script>
 
