@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+
+    <title></title>
+    <script src="Content/jquery-3.2.1.min.js"></script>
+    <script src="Content/jquery.cookie.js"></script>
+    <script src="Content/kullanicilar.js"></script>
+    <style>
+        #login-sayfasi {
+            width: 700px;
+            height: auto;
+            margin: auto;
+        }
+
+        #kullaniciAdi, #sifre {
+            display: block;
+            text-align: left;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: x-large;
+            width: 600px;
+            height: 70px;
+            margin-top: 200px;
+            margin-bottom: 50px;
+            border-radius: 10px;
+        }
+
+        #sifre {
+            margin-top: 100px;
+        }
+
+        #giris {
+            display: block;
+            width: 170px;
+            height: 80px;
+            color:aliceblue;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 25px;
+            border-radius: 10px;
+            margin-left: 200px;
+            background-color: #0033cc;
+            
+        }
+     
+        #denemeSayaci {
+            display: inline-block;
+            width: 675px;
+            margin-top: 50px;
+            margin-left: 200px;
+           
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 20px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="login-sayfasi">
+           <input id="kullaniciAdi" type="text" value="" placeholder="Username"onkeypress="return event.charCode >=48 && event.charCode <=57"maxlength="20" />             
+            <input id="sifre" type="password" value="" placeholder="Password" />
+            <button id="giris">Log In</button>
+            <a id="denemeSayaci"></a>
+    </div>
+
+    <script>
+       /* function isValid(frm) {
+            var kullaniciAdi = document.getElementById('kullaniciAdi').value;
+            var sifre = document.getElementById('sifre').value1;
+           
+
+            if (kullaniciAdi == null || kullaniciAdi == "" || sifre == null || sifre == "") {
+                alert("Username bilgisini giriniz veya Password bilgisini giriniz");
+                return false;
+            }
+            function uzunlukkontrol(kullaniciAdi, min, max) {
+                min = min || 2;
+                max = max || 5;
+                if (kullaniciAdi.length < min || kullaniciAdi.length > max) {
+                    alert("fazla girme");
+                    return false;
+                }
+            for (var i = 0; i < kullaniciAdi.length; i++) {
+
+                if (kullaniciAdi == null || kullaniciAdi == "" || kullaniciAdi.length < 2) {
+                    alert("Kullanıcı adı 4 karakterden az olamaz");
+                    return false;
+                }
+            }
+            return true;
+        }
+    */
+        $.cookie('girisSayaci', '0')
+
+        $('#giris').bind('click', function () {
+            if (!$.cookie("login") & !$.cookie('loginBlocker')) {
+                $.ajax({
+                    url: 'Content/kullanicilar.js',
+                    method: 'get',
+                    success: function (data) {
+                        var kullanicilar = JSON.parse(data);
+                        var girisSayaci = parseInt($.cookie('girisSayaci'))
+                        var kullaniciAdi = document.getElementById('kullaniciAdi').value
+                        var sifre = document.getElementById('sifre').value
+
+                       
+                        if (kullaniciAdi == null || kullaniciAdi == "" || sifre == null || sifre == "") {
+                            alert("Username bilgisini giriniz veya Password bilgisini giriniz");
+                            return false;
+                        }
+                     
+                        for (var i = 0; i < kullanicilar.length; i++) {
+
+                            if (kullaniciAdi == kullanicilar[i].kullanici_adi & sifre == kullanicilar[i].sifre) {
+                                //document.getElementById('denemeSayaci').innerHTML = 'GİRİŞ BAŞARILI!'
+                                alert("GİRİŞ BAŞARILI!");
+                               
+                                $.cookie('login', kullaniciAdi, { expires: 1 })
+                                break;
+                            }
+                            else {
+                                if (girisSayaci != 3 & !$.cookie('loginBlocker')) {
+                                    $.cookie('girisSayaci', (girisSayaci++))
+                                    document.getElementById('denemeSayaci').innerHTML = 3-$.cookie('girisSayaci') + ' ' + 'Deneme Hakkınız Kaldı'
+                                }
+                                else if (girisSayaci == 3 & !$.cookie('loginBlocker')) {
+                                    document.getElementById('denemeSayaci').innerHTML = 'HESABINIZ BLOKE EDİLMİŞTİR!'
+
+                                    
+                                }
+                            }
+
+                        }
+                    }
+                })
+            }
+        })
+        $('#giris').bind('click', function () {
+            if ($.cookie('loginBlocker')) {
+                document.getElementById('denemeSayaci').innerHTML = 'Hesabınız Bloke olmuştur .Lütfen Daha Sonra Tekrar Deneyin'
+            }
+        })
+
+        if ($.cookie('login')) {
+            document.getElementById('denemeSayaci').innerHTML = 'GİRİŞ BAŞARILI!'
+        }
+
+
+
+
+    </script>
+
+</body>
+</html>
