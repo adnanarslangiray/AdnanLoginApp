@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -10,10 +11,9 @@
     <script src="Content/kullanicilar.js"></script>
     <style>
         #login-sayfasi {
-           
             border: 3px solid #f1f1f1;
             width: 500px;
-            margin:  auto;
+            margin: auto;
             padding: 20px;
             background: rgba(255,255,255, 0.2);
             box-shadow: 0px 0px 23px 6px grey;
@@ -36,7 +36,6 @@
             margin-top: 50px;
         }
 
-      
         .ust-bilgi {
             display: flex;
             -ms-flex-direction: row;
@@ -78,8 +77,9 @@
             background-color: #c7c7c7;
             height: 1px;
             position: relative;
-             top: .45em;
+            top: .45em;
         }
+
         .alt-bilgi {
             display: flex;
             -ms-flex-direction: row;
@@ -100,17 +100,19 @@
             position: relative;
             top: .45em;
         }
+
         .sag-alt-cizgi {
             display: inline;
             -webkit-box-flex: 1;
             flex-grow: 1;
             flex-shrink: 1;
-            margin-top:15px;
+            margin-top: 15px;
             background-color: #c7c7c7;
             height: 1px;
             position: relative;
             top: .45em;
         }
+
         #giris {
             display: inline-block;
             width: 170px;
@@ -144,83 +146,50 @@
 <body>
     <div id="login-sayfasi">
         <div class="ust-bilgi">
-          <div class="sol-ust-cizgi"></div> 
-          <div class="ust-yazi">PLEASE LOG IN </div>
-          <div class="sag-ust-cizgi"></div>
+            <div class="sol-ust-cizgi"></div>
+            <div class="ust-yazi">PLEASE LOG IN </div>
+            <div class="sag-ust-cizgi"></div>
 
         </div>
-          <input id="kullaniciAdi" type="text" value="" placeholder="Username"  onkeydown="if (event.charCode >= 48 && event.charCode <= 57 & event.charCode >= 65 && event.charCode <= 90) return" maxlength="20" />            
-            <input id="sifre" type="password" value="" placeholder="Password"maxlength="8" />
+        <input id="kullaniciAdi" type="text" value="" placeholder="Username" onkeydown="if (event.charCode >= 48 && event.charCode <= 57 & event.charCode >= 65 && event.charCode <= 90) return" maxlength="20" />
+        <input id="sifre" type="password" value="" placeholder="Password" maxlength="8" />
         <div class="alt-bilgi">
             <div class="sol-alt-cizgi"></div>
             <button id="giris">Log In</button>
             <div class="sag-alt-cizgi"></div>
-          </div>
-           <span class="uyari"></span>
+        </div>
+        <span class="uyari"></span>
     </div>
 
     <script>
-       /* var input = document.getElementById('kullaniciAdi');
 
-        input.addEventListener('keypress', function (event) {
-            if (event.charCode >= 48 && event.charCode <= 57) {
-                checkID(input.value);
-                return true;
-            } else {
-                return false;
-            };
-            input.addEventListener('keypress', handler2);
-    */
-        
-        var k_Adi = $('#kullaniciAdi').val();
-        var k_Sifre = $('#sifre').val();
         $(document).ready(function () {
-            var k_Adi = $('#kullaniciAdi').val();
-            var k_Sifre = $('#sifre').val();
-            $('#kullaniciAdi').on("keyup", function (event) {
-
-                form_kontrolu1();
-                return;
-
-
-
+            $("#kullaniciAdi").focus(function () {
+                $("#kullaniciAdi").keyup(function () {
+                    if ($("#kullaniciAdi").val().length <= 2) {
+                        $('.uyari').text('Username bilgisini giriniz');
+                        return;
+                    }
+                    else {
+                        $('.uyari').text('');
+                    }
+                })
             });
-
-            $('#sifre').on("keyup", function (event) {
-
-                form_kontrolu2();
-                return;
-
-
-
+            $("#sifre").focus(function () {
+                $("#sifre").keyup(function () {
+                    if ($("#sifre").val().length < 5) {
+                        $('.uyari').text('Password bilgisini giriniz');
+                        return;
+                    }
+                    else {
+                        $('.uyari').text('');
+                    }
+                })
             });
-
-       
-
-        var form_kontrolu1 = function () {
-            
-            if (k_Adi != null || k_Adi != "" || k_Adi.length < 2) {
-                $('.uyari').text('Username bilgisini giriniz')
-                return;
-            } else {
-                $('.uyari').hide();;
-            }
-             
-        }
-        var form_kontrolu2 = function () {
-
-            if (k_Sifre.length < 5) {
-                $('.uyari').text('Password bilgisini giriniz')
-                return;
-            } else {
-                $('.uyari').hide();
-                //$('#uye_formu').removeAttr('onsubmit');
-
-            }
-        }
             var sayac = 0;
             $('#giris').on('click', function () {
-
+                var k_Adi = $('#kullaniciAdi').val();
+                var k_Sifre = $('#sifre').val();
                 if (k_Adi.length == "" || k_Sifre.length == "") {
                     $('.uyari').text('Username bilgisini giriniz veya Password bilgisini giriniz')
                     return;
@@ -231,19 +200,15 @@
                     $('#sifre').val('');
                     return;
                 }
-
-
                 $.cookie("sayac", sayac, { expires: 100 });
                 $.ajax({
                     url: 'Content/kullanicilar.js',
                     method: 'get',
                     success: function (data) {
-
                         var kullanicilar = JSON.parse(data);
                         for (var i = 0; i < kullanicilar.length; i++) {
                             var kullanici = kullanicilar[i];
                             if (k_Adi == kullanici.kullanici_adi) {
-
                                 break;
                             } else { kullanici = ""; }
                         }
@@ -259,7 +224,6 @@
                             sayac = 0;
                             $('.uyari').text('Giriş Başarılı');
                             $('.uyari').css('color', 'green');
-
                             return;
                         } else {
                             if ($.cookie("sayac") == 3 || kullanici.hesapDurumu === "0") {
@@ -268,16 +232,14 @@
                                 return;
                             } else {
                                 sayac++
-                                $('.uyari').text("");
+                                $('.uyari').text("Hatalı şifre girdiniz.");
                             }
                         }
                     }
                 })
-
             })
         });
-       
-        
+
 
     </script>
 
