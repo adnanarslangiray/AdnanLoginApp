@@ -171,88 +171,113 @@
             };
             input.addEventListener('keypress', handler2);
     */
+        
+        var k_Adi = $('#kullaniciAdi').val();
+        var k_Sifre = $('#sifre').val();
         $(document).ready(function () {
-            $("#kullaniciAdi" ||"sifre").on("keyup", function (event) {
-                form_kontrolu();
-            });
-        });
-        var form_kontrolu = function () {
             var k_Adi = $('#kullaniciAdi').val();
             var k_Sifre = $('#sifre').val();
+            $('#kullaniciAdi').on("keyup", function (event) {
 
-         
-             if (k_Adi.length < 2) {
+                form_kontrolu1();
+                return;
+
+
+
+            });
+
+            $('#sifre').on("keyup", function (event) {
+
+                form_kontrolu2();
+                return;
+
+
+
+            });
+
+       
+
+        var form_kontrolu1 = function () {
+            
+            if (k_Adi != null || k_Adi != "" || k_Adi.length < 2) {
                 $('.uyari').text('Username bilgisini giriniz')
                 return;
+            } else {
+                $('.uyari').hide();;
             }
+             
+        }
+        var form_kontrolu2 = function () {
+
             if (k_Sifre.length < 5) {
                 $('.uyari').text('Password bilgisini giriniz')
-               
-                if (k_Sifre.length >= 5) {
-                    $('.uyari').text('');
-                    return;
+                return;
+            } else {
+                $('.uyari').hide();
+                //$('#uye_formu').removeAttr('onsubmit');
+
             }
-               
-           }
         }
-        var sayac = 0;
-        $('#giris').on('click', function () {
-            var k_Adi = $('#kullaniciAdi').val();
-            var k_Sifre = $('#sifre').val();
-            if (k_Adi.trim() == "" || k_Sifre.trim() == "") {
-                $('.uyari').text('Username bilgisini giriniz veya Password bilgisini giriniz')
-                return;
-            }
-            if (k_Adi.length < 2 && k_Sifre.length < 5  ) {
-                $('.uyari').text('Login Hatalı');
-                $('#kullaniciAdi').val('');
-                $('#sifre').val('');
-                return;
-            }
-           
-            
-            $.cookie("sayac", sayac, { expires: 100 });
-            $.ajax({
-                url: 'Content/kullanicilar.js',
-                method: 'get',
-                success: function (data) {
+            var sayac = 0;
+            $('#giris').on('click', function () {
 
-                    var kullanicilar = JSON.parse(data);
-                    for (var i = 0; i < kullanicilar.length; i++) {
-                        var kullanici = kullanicilar[i];
-                        if (k_Adi == kullanici.kullanici_adi) {
-                           
-                            break;
-                        } else { kullanici = ""; }
-                    }
-                    if (kullanici === "") {
-                        $("#kullaniciAdi").text("");
-                        $("#sifre").text("");
-                        $('.uyari').text('UserName Sistemde Bulunmadı');
-                        $('#giris').attr('disabled',true);
-                        return;
-                    }
-                    if (kullanici.sifre === k_Sifre) {
-                        $.cookie("sayac") == 0;
-                        sayac = 0;
-                        $('.uyari').text('Giriş Başarılı');
-                        $('.uyari').css('color', 'green');
+                if (k_Adi.length == "" || k_Sifre.length == "") {
+                    $('.uyari').text('Username bilgisini giriniz veya Password bilgisini giriniz')
+                    return;
+                }
+                else if (k_Adi.length < 2 && k_Sifre.length < 5) {
+                    $('.uyari').text('Login Hatalı');
+                    $('#kullaniciAdi').val('');
+                    $('#sifre').val('');
+                    return;
+                }
 
-                        return;
-                    } else {
-                        if ($.cookie("sayac") == 3 || kullanici.hesapDurumu === "0") {
-                            kullanici.hesapDurumu = "0";
-                            $('.uyari').text('Hesap Bloke Edilmiştir !');
+
+                $.cookie("sayac", sayac, { expires: 100 });
+                $.ajax({
+                    url: 'Content/kullanicilar.js',
+                    method: 'get',
+                    success: function (data) {
+
+                        var kullanicilar = JSON.parse(data);
+                        for (var i = 0; i < kullanicilar.length; i++) {
+                            var kullanici = kullanicilar[i];
+                            if (k_Adi == kullanici.kullanici_adi) {
+
+                                break;
+                            } else { kullanici = ""; }
+                        }
+                        if (kullanici === "") {
+                            $("#kullaniciAdi").text("");
+                            $("#sifre").text("");
+                            $('.uyari').text('UserName Sistemde Bulunmadı');
+                            $('#giris').attr('disabled', true);
+                            return;
+                        }
+                        if (kullanici.sifre === k_Sifre) {
+                            $.cookie("sayac") == 0;
+                            sayac = 0;
+                            $('.uyari').text('Giriş Başarılı');
+                            $('.uyari').css('color', 'green');
+
                             return;
                         } else {
-                            sayac++
-                            $('.uyari').text("");
+                            if ($.cookie("sayac") == 3 || kullanici.hesapDurumu === "0") {
+                                kullanici.hesapDurumu = "0";
+                                $('.uyari').text('Hesap Bloke Edilmiştir !');
+                                return;
+                            } else {
+                                sayac++
+                                $('.uyari').text("");
+                            }
                         }
                     }
-                }
-            })
+                })
 
-        })
+            })
+        });
+       
+        
 
     </script>
 
