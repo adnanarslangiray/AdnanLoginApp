@@ -1,0 +1,137 @@
+﻿
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+
+    <title></title>
+   
+    <link type="text/css" rel="stylesheet" href="Content/login.css"/>
+    
+</head>
+<body>
+    <div id="login-sayfasi">
+        <div class="ust-bilgi">
+            <div class="sol-ust-cizgi"></div>
+            <div class="ust-yazi">PLEASE LOG IN </div>
+            <div class="sag-ust-cizgi"></div>
+
+        </div>
+        <input id="kullaniciAdi" type="text" value="" placeholder="Username"  maxlength="20" />
+        <input id="sifre" type="password" value="" placeholder="Password" maxlength="8" />
+        <div class="alt-bilgi">
+            <div class="sol-alt-cizgi"></div>
+            <button id="giris">Log In</button>
+            <div class="sag-alt-cizgi"></div>
+        </div>
+        <span class="uyari"></span>
+       
+    </div>
+    <script src="Content/jquery-3.2.1.min.js"></script>
+    <script src="Content/jquery.cookie.js"></script>
+    <script src="Content/kullanicilar.js"></script>
+    <script>
+
+
+        $(document).ready(function () {
+
+            $("#kullaniciAdi").keypress(function (e) {
+                var regex = new RegExp("^[a-zA-Z0-9]+$");
+                var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+                if (regex.test(str)) {
+                    return true;
+                }
+
+                e.preventDefault();
+                return false;
+            });
+
+
+
+            $("#kullaniciAdi").focus(function () {
+                $("#kullaniciAdi").keyup(function () {
+                    if ($("#kullaniciAdi").val().length < 2) {
+                        $('.uyari').text('Username bilgisini giriniz');
+                        return;
+                    }
+                    else {
+                        $('.uyari').text('');
+                    }
+                })
+            });
+            $("#sifre").focus(function () {
+                $("#sifre").keyup(function () {
+                    if ($("#sifre").val().length < 5) {
+                        $('.uyari').text('Password bilgisini giriniz');
+                        return;
+                    }
+                    else {
+                        $('.uyari').text('');
+                    }
+                })
+            });
+            var sayac = 0;
+           
+            $('#giris').on('click', function () {
+                var k_Adi = $('#kullaniciAdi').val();
+                var k_Sifre = $('#sifre').val();
+                if (k_Adi.length == "" || k_Sifre.length == "") {
+                    $('.uyari').text('Username bilgisini giriniz veya Password bilgisini giriniz')
+                    return;
+                }
+                else if (k_Adi.length < 2 && k_Sifre.length < 5) {
+                    $('.uyari').text('Login Hatalı');
+                    $('#kullaniciAdi').val('');
+                    $('#sifre').val('');
+                    return;
+                }
+                $.cookie("sayac", sayac, { expires: 100 });
+                
+                $.ajax({
+                    url: 'Content/kullanicilar.js',
+                    method: 'get',
+                    success: function (data) {
+                        var kullanicilar = JSON.parse(data);
+                        for (var i = 0; i < kullanicilar.length; i++) {
+                            var kullanici = kullanicilar[i];
+                            if (k_Adi == kullanici.kullanici_adi) {
+                                break;
+                            } else { kullanici = ""; }
+                        }
+                        if (kullanici === "") {
+                            $("#kullaniciAdi").text("");
+                            $("#sifre").text("");
+                            $('.uyari').text('UserName Sistemde Bulunmadı');
+                            $('#giris').attr('disabled', true);
+                            return;
+                        }
+                       if (kullanici.sifre === k_Sifre && (kullanici.hesapDurumu === 1)) {
+                                  $.cookie("sayac") == 0;
+                                  sayac = 0;
+                                  $('.uyari').text('Giriş Başarılı');
+                                  $('.uyari').css('color', 'green');
+                                  return;
+                                }
+                                else {
+                                
+                                  if ($.cookie("sayac") == 3 || kullanici.hesapDurumu === 0) {
+                                      kullanici.hesapDurumu = 0;
+                                      $('.uyari').text('Hesap Bloke Edilmiştir !');
+                                      
+                                      return ;
+                                  } else {
+                                      sayac++
+                                      $('.uyari').text("Hatalı şifre girdiniz.");
+                                      return;
+                                   }
+                                  }
+                        }
+                     
+                })
+            })
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+﻿
+
+ #login-sayfasi {
+    border: 3px solid #f1f1f1;
+    width: 500px;
+    margin: auto;
+    padding: 20px;
+    background: rgba(255,255,255, 0.2);
+    box-shadow: 0px 0px 23px 6px grey;
+}
+
+#kullaniciAdi, #sifre {
+    display: inline-block;
+    text-align: left;
+    outline: none;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: x-large;
+    width: 100%;
+    height: 50px;
+    margin-top: 80px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+#sifre {
+    margin-top: 50px;
+}
+
+.ust-bilgi {
+    display: flex;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    width: 100%;
+    margin: 10px 10px 0px;
+    box-shadow: 0 0 black;
+}
+
+.sol-ust-cizgi {
+    display: inline;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    flex-shrink: 1;
+    background-color: #c7c7c7;
+    height: 1px;
+    position: relative;
+    top: .45em;
+}
+
+.ust-yazi {
+    display: inline;
+    color: #999;
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 15px;
+    margin: 0 18px;
+    text-transform: uppercase;
+}
+
+.sag-ust-cizgi {
+    display: inline;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    flex-shrink: 1;
+    background-color: #c7c7c7;
+    height: 1px;
+    position: relative;
+    top: .45em;
+}
+
+.alt-bilgi {
+    display: flex;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    width: 100%;
+    margin: 40px 10px 10px;
+    box-shadow: 0 0 black;
+}
+
+.sol-alt-cizgi {
+    display: inline;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    flex-shrink: 1;
+    background-color: #c7c7c7;
+    height: 1px;
+    margin-top: 15px;
+    position: relative;
+    top: .45em;
+}
+
+.sag-alt-cizgi {
+    display: inline;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin-top: 15px;
+    background-color: #c7c7c7;
+    height: 1px;
+    position: relative;
+    top: .45em;
+}
+
+#giris {
+    display: inline-block;
+    width: 170px;
+    height: 60px;
+    color: aliceblue;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 25px;
+    border-radius: 10px;
+    margin-left: 180px;
+    background-color: #3897f0;
+    border-color: #3897f0;
+    outline: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-grow: 0;
+    font-weight: 600;
+    margin: 0 18px;
+    -moz-box-shadow: 0 0 65px rgba(0,0,0,0.2);
+}
+
+.uyari {
+    display: block;
+    margin: 30px 40px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+    color: #ed4956;
+}
+
+
