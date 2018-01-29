@@ -1,12 +1,22 @@
 ﻿
 
- #login-sayfasi {
+body {
+    background-color: #fafafa;
+    background-repeat: repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#login-sayfasi {
     border: 3px solid #f1f1f1;
-    width: 500px;
+    width: 430px;
+    height:auto;
     margin: auto;
+    margin-top: 80px;
     padding: 20px;
-    background: rgba(255,255,255, 0.2);
-    box-shadow: 0px 0px 23px 6px grey;
+    position: relative;
+    background-color: #fafafa;
+    box-shadow: 0px 0px 10px 6px gray;
 }
 
 #kullaniciAdi, #sifre {
@@ -17,13 +27,13 @@
     font-size: x-large;
     width: 100%;
     height: 50px;
-    margin-top: 80px;
-    margin-bottom: 10px;
+    margin-top: 50px;
+   
     border-radius: 10px;
 }
 
 #sifre {
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .ust-bilgi {
@@ -86,7 +96,7 @@
     flex-shrink: 1;
     background-color: #c7c7c7;
     height: 1px;
-    margin-top: 15px;
+    margin-top: 20px;
     position: relative;
     top: .45em;
 }
@@ -96,7 +106,7 @@
     -webkit-box-flex: 1;
     flex-grow: 1;
     flex-shrink: 1;
-    margin-top: 15px;
+    margin-top: 20px;
     background-color: #c7c7c7;
     height: 1px;
     position: relative;
@@ -111,25 +121,26 @@
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 25px;
     border-radius: 10px;
-    margin-left: 180px;
     background-color: #3897f0;
     border-color: #3897f0;
     outline: none;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    flex-grow: 0;
+    cursor: pointer;
     font-weight: 600;
     margin: 0 18px;
-    -moz-box-shadow: 0 0 65px rgba(0,0,0,0.2);
 }
-
-.uyari {
-    display: block;
-    margin: 30px 40px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 20px;
-    color: #ed4956;
-}
+    
+    #giris:active {
+        background-color: #3897f0;
+        opacity: .7;
+    }
+   
+        
+    .uyari {
+        display: block;
+        margin: 30px 40px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 20px;
+        color: #ed4956;
+    }
 
 
